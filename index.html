@@ -9,7 +9,7 @@
   --bg:#0d1117; --panel:#161b22; --panel2:#1c232c; --line:#2a323d;
   --txt:#e6edf3; --mut:#9aa7b4; --mut2:#6b7785;
   --g1:#22d3ee; --g2:#a78bfa; --g3:#f472b6; --g4:#f87171;
-  --g5:#34d399; --g6:#fbbf24; --g7:#60a5fa; --g8:#cbd5e1;
+  --g5:#34d399; --g6:#fbbf24; --g7:#60a5fa; --g8:#cbd5e1; --g9:#e879f9;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
@@ -64,6 +64,9 @@ body{
 .item .vi{flex:1;}
 .item .code{font-size:9px;color:var(--mut2);font-family:ui-monospace,monospace;display:none;}
 .sb.showcode .item .code{display:block;}
+.lyr{font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:99px;flex-shrink:0;letter-spacing:.3px;}
+.lyr.main{background:rgba(52,211,153,.18);color:#34d399;}
+.lyr.detail{background:rgba(148,163,184,.16);color:#94a3b8;}
 
 /* stage */
 .stage{position:relative;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;}
@@ -112,7 +115,7 @@ body{
 <body>
 <div class="hdr">
   <h1>Atlas X-quang Ngực PA</h1>
-  <span class="sub">Demo đặt vùng vị trí · 8 nhóm · 47 vị trí</span>
+  <span class="sub">Bộ vùng ATLAS_VUNG · 9 nhóm · 28 vùng (16 lớp Chính)</span>
   <div class="right">
     <button class="btn ghost" id="toggleCode">Hiện mã code</button>
     <button class="btn ghost" id="toggleLbl">Ẩn nhãn</button>
@@ -124,6 +127,7 @@ body{
 <div class="body">
   <div class="sb" id="sb">
     <div class="sb-tools">
+      <button id="onlyMainBtn" title="Chỉ hiện các vùng lớp Chính (atlas 18 vùng)">Chỉ vùng chính</button>
       <button id="expandAll">Xem tất cả</button>
       <button id="collapseAll">Mặc định</button>
       <button id="showAll">Bật hiển thị</button>
@@ -145,131 +149,81 @@ body{
 </div>
 
 <script>
+// Bộ vùng atlas chính thức theo sheet ATLAS_VUNG (Danh mục thuật ngữ X-quang ngực 2).
+// Nhóm = cột "Nhóm"; mã LOC_* giữ nguyên để phần mềm ánh xạ; layer = lớp atlas (Chính / Chi tiết).
 const GROUPS = [
-  {code:"G1", color:"--g1", name:"Đường thở trung tâm", px:50, py:31,
+  {code:"G1", color:"--g1", name:"Đường thở trung tâm", px:50, py:30,
    items:[
-     {n:1, vi:"Khí quản", code:"CXR_PA_AIRWAY_TRACHEA", x:50, y:21},
-     {n:2, vi:"Carina / chạc ba khí quản", code:"CXR_PA_AIRWAY_CARINA", x:49, y:39},
-     {n:3, vi:"Phế quản chính phải – trên", code:"CXR_PA_AIRWAY_R_MAIN_BRONCHUS_UPPER", x:45, y:40},
-     {n:4, vi:"Phế quản chính phải – giữa", code:"CXR_PA_AIRWAY_R_MAIN_BRONCHUS_MID", x:43, y:43},
-     {n:5, vi:"Phế quản chính phải – dưới", code:"CXR_PA_AIRWAY_R_MAIN_BRONCHUS_LOWER", x:42, y:47},
-     {n:6, vi:"Phế quản chính trái – trên", code:"CXR_PA_AIRWAY_L_MAIN_BRONCHUS_UPPER", x:56, y:40},
-     {n:7, vi:"Phế quản chính trái – dưới", code:"CXR_PA_AIRWAY_L_MAIN_BRONCHUS_LOWER", x:58, y:44},
+     {n:1, vi:"Khí quản", code:"LOC_TRACHEA", x:50, y:21, layer:"Chi tiết"},
+     {n:2, vi:"Chạc ba khí quản (carina)", code:"LOC_CARINA", x:49, y:39, layer:"Chi tiết"},
+     {n:3, vi:"Phế quản gốc phải (cấp khí phổi phải)", code:"LOC_R_MAIN_BRONCHUS", x:44, y:42, layer:"Chi tiết"},
+     {n:4, vi:"Phế quản gốc trái (cấp khí phổi trái)", code:"LOC_L_MAIN_BRONCHUS", x:56, y:42, layer:"Chi tiết"},
    ]},
-  {code:"G2", color:"--g2", name:"Trung thất & mạch máu lớn", px:57, py:38,
+  {code:"G2", color:"--g2", name:"Trung thất", px:50, py:46,
    items:[
-     {n:1, vi:"Dải cạnh khí quản phải (TM Azygos)", code:"CXR_PA_MED_R_PARATRACHEAL_AZYGOS", x:46, y:29},
-     {n:2, vi:"Động mạch chủ lên", code:"CXR_PA_MED_ASCENDING_AORTA", x:46, y:44},
-     {n:3, vi:"Quai động mạch chủ", code:"CXR_PA_MED_AORTIC_ARCH", x:58, y:36},
-     {n:4, vi:"Động mạch chủ xuống", code:"CXR_PA_MED_DESCENDING_AORTA", x:54, y:51},
-     {n:5, vi:"Tĩnh mạch chủ trên (TM chủ lên)", code:"CXR_PA_MED_SVC", x:45, y:33},
-     {n:6, vi:"Trung thất trước", code:"CXR_PA_MED_ANTERIOR", x:52, y:52},
-     {n:7, vi:"Trung thất giữa (xem phim nghiêng)", code:"CXR_PA_MED_MIDDLE", x:49, y:46},
-     {n:8, vi:"Trung thất sau", code:"CXR_PA_MED_POSTERIOR", x:50, y:59},
+     {n:1, vi:"Trung thất", code:"LOC_MEDIASTINUM", x:50, y:46, layer:"Chi tiết"},
    ]},
-  {code:"G3", color:"--g3", name:"Rốn phổi & mạch máu phổi TT", px:60, py:44,
+  {code:"G3", color:"--g9", name:"Mạch lớn", px:56, py:36,
    items:[
-     {n:1, vi:"Rốn phổi phải", code:"CXR_PA_HILUM_R_HILUM", x:42, y:46},
-     {n:2, vi:"Rốn phổi trái", code:"CXR_PA_HILUM_L_HILUM", x:60, y:43},
-     {n:3, vi:"Hạch rốn phổi", code:"CXR_PA_HILUM_LYMPH_NODE", x:47, y:47},
-     {n:4, vi:"Nhánh ĐM phổi phải – trên", code:"CXR_PA_HILUM_R_PA_UPPER", x:43, y:43},
-     {n:5, vi:"Nhánh ĐM phổi phải – giữa", code:"CXR_PA_HILUM_R_PA_MID", x:42, y:47},
-     {n:6, vi:"Nhánh ĐM phổi phải – dưới", code:"CXR_PA_HILUM_R_PA_LOWER", x:41, y:51},
-     {n:7, vi:"Nhánh ĐM phổi trái – trên", code:"CXR_PA_HILUM_L_PA_UPPER", x:60, y:40},
-     {n:8, vi:"Nhánh ĐM phổi trái – giữa", code:"CXR_PA_HILUM_L_PA_MID", x:61, y:44},
-     {n:9, vi:"Nhánh ĐM phổi trái – dưới", code:"CXR_PA_HILUM_L_PA_LOWER", x:61, y:48},
+     {n:1, vi:"Quai động mạch chủ", code:"LOC_AORTIC_ARCH", x:58, y:36, layer:"Chi tiết"},
+     {n:2, vi:"Tĩnh mạch chủ trên", code:"LOC_SVC", x:46, y:33, layer:"Chi tiết"},
    ]},
-  {code:"G4", color:"--g4", name:"Bóng tim & bờ tim", px:53, py:66,
+  {code:"G4", color:"--g3", name:"Rốn phổi", px:60, py:44,
    items:[
-     {n:1, vi:"Bờ tim phải / nhĩ phải", code:"CXR_PA_CARDIAC_R_HEART_BORDER", x:44, y:62},
-     {n:2, vi:"Bờ tim trái / thất trái", code:"CXR_PA_CARDIAC_L_HEART_BORDER", x:62, y:62},
-     {n:3, vi:"Mỏm tim", code:"CXR_PA_CARDIAC_APEX", x:64, y:73},
-     {n:4, vi:"Bóng tim", code:"CXR_PA_CARDIAC_SILHOUETTE", x:53, y:65},
-     {n:5, vi:"Góc tâm hoành phải", code:"CXR_PA_CARDIOPHRENIC_R_ANGLE", x:42, y:75},
-     {n:6, vi:"Góc tâm hoành trái", code:"CXR_PA_CARDIOPHRENIC_L_ANGLE", x:66, y:76},
+     {n:1, vi:"Rốn phổi / quanh rốn phải", code:"LOC_R_HILAR_PERIHILAR", x:42, y:46, layer:"Chính"},
+     {n:2, vi:"Rốn phổi / quanh rốn trái", code:"LOC_L_HILAR_PERIHILAR", x:60, y:43, layer:"Chính"},
    ]},
-  {code:"G5", color:"--g5", name:"Trường phổi / nhu mô phổi", px:33, py:45,
+  {code:"G5", color:"--g4", name:"Tim", px:53, py:66,
    items:[
-     {n:1, vi:"Phổi phải – đỉnh phổi", code:"CXR_PA_LUNG_R_APEX", x:36, y:23},
-     {n:2, vi:"Phổi phải – 1/3 trên", code:"CXR_PA_LUNG_R_UPPER_THIRD", x:33, y:37},
-     {n:3, vi:"Phổi phải – 1/3 giữa", code:"CXR_PA_LUNG_R_MIDDLE_THIRD", x:32, y:50},
-     {n:4, vi:"Phổi phải – 1/3 dưới", code:"CXR_PA_LUNG_R_LOWER_THIRD", x:34, y:63},
-     {n:5, vi:"Phổi trái – đỉnh phổi", code:"CXR_PA_LUNG_L_APEX", x:65, y:23},
-     {n:6, vi:"Phổi trái – thùy trên", code:"CXR_PA_LUNG_L_UPPER_LOBE", x:69, y:37},
-     {n:7, vi:"Phổi trái – thùy lưỡi", code:"CXR_PA_LUNG_L_LINGULA", x:64, y:60},
-     {n:8, vi:"Phổi trái – thùy dưới", code:"CXR_PA_LUNG_L_LOWER_LOBE", x:70, y:63},
+     {n:1, vi:"Bóng tim", code:"LOC_CARDIAC_SILHOUETTE", x:53, y:65, layer:"Chính"},
+     {n:2, vi:"Góc tâm hoành phải", code:"LOC_RIGHT_CARDIOPHRENIC", x:42, y:76, layer:"Chi tiết"},
+     {n:3, vi:"Góc tâm hoành trái", code:"LOC_LEFT_CARDIOPHRENIC", x:66, y:77, layer:"Chi tiết"},
    ]},
-  {code:"G6", color:"--g6", name:"Màng phổi", px:78, py:55,
+  {code:"G6", color:"--g5", name:"Nhu mô phổi", px:33, py:45,
    items:[
-     {n:1, vi:"Màng phổi phải – đỉnh phổi", code:"CXR_PA_PLEURA_R_APEX", x:30, y:20},
-     {n:2, vi:"Màng phổi phải – 1/3 trên", code:"CXR_PA_PLEURA_R_UPPER_THIRD", x:24, y:40},
-     {n:3, vi:"Màng phổi phải – 1/3 giữa", code:"CXR_PA_PLEURA_R_MIDDLE_THIRD", x:22, y:52},
-     {n:4, vi:"Màng phổi phải – 1/3 dưới", code:"CXR_PA_PLEURA_R_LOWER_THIRD", x:26, y:66},
-     {n:5, vi:"Màng phổi trái – đỉnh phổi", code:"CXR_PA_PLEURA_L_APEX", x:70, y:20},
-     {n:6, vi:"Màng phổi trái – thùy trên", code:"CXR_PA_PLEURA_L_UPPER_LOBE", x:80, y:40},
-     {n:7, vi:"Màng phổi trái – thùy lưỡi", code:"CXR_PA_PLEURA_L_LINGULA", x:78, y:58},
-     {n:8, vi:"Màng phổi trái – thùy dưới", code:"CXR_PA_PLEURA_L_LOWER_LOBE", x:77, y:66},
+     {n:1, vi:"Đỉnh phổi phải", code:"LOC_R_APICAL", x:36, y:23, layer:"Chính"},
+     {n:2, vi:"Đỉnh phổi trái", code:"LOC_L_APICAL", x:65, y:23, layer:"Chính"},
+     {n:3, vi:"Vùng phổi trên phải", code:"LOC_R_UPPER_ZONE", x:33, y:37, layer:"Chính"},
+     {n:4, vi:"Vùng phổi trên trái", code:"LOC_L_UPPER_ZONE", x:69, y:37, layer:"Chính"},
+     {n:5, vi:"Vùng phổi giữa phải", code:"LOC_R_MID_ZONE", x:32, y:50, layer:"Chính"},
+     {n:6, vi:"Vùng phổi giữa trái", code:"LOC_L_MID_ZONE", x:70, y:50, layer:"Chính"},
+     {n:7, vi:"Vùng phổi dưới phải", code:"LOC_R_LOWER_ZONE", x:34, y:63, layer:"Chính"},
+     {n:8, vi:"Vùng phổi dưới trái", code:"LOC_L_LOWER_ZONE", x:69, y:63, layer:"Chính"},
    ]},
-  {code:"G7", color:"--g7", name:"Cơ hoành & vùng dưới hoành", px:40, py:72,
+  {code:"G7", color:"--g6", name:"Màng phổi – đáy phổi", px:76, py:72,
    items:[
-     {n:1, vi:"Cơ hoành phải", code:"CXR_PA_DIAPHRAGM_R_HEMIDIAPHRAGM", x:38, y:71},
-     {n:2, vi:"Cơ hoành trái", code:"CXR_PA_DIAPHRAGM_L_HEMIDIAPHRAGM", x:66, y:75},
-     {n:3, vi:"Bóng hơi dạ dày (dưới hoành trái)", code:"CXR_PA_SUBDIAPHRAGM_GASTRIC_AIR_BUBBLE", x:67, y:82},
-     {n:4, vi:"Bóng gan (dưới hoành phải)", code:"CXR_PA_SUBDIAPHRAGM_LIVER_SHADOW", x:40, y:83},
-     {n:5, vi:"Góc sườn-hoành phải", code:"CXR_PA_PLEURA_R_COSTOPHRENIC_ANGLE", x:27, y:74},
-     {n:6, vi:"Góc sườn-hoành trái", code:"CXR_PA_PLEURA_L_COSTOPHRENIC_ANGLE", x:76, y:74},
+     {n:1, vi:"Góc sườn hoành phải", code:"LOC_R_COSTOPHRENIC", x:27, y:74, layer:"Chính"},
+     {n:2, vi:"Góc sườn hoành trái", code:"LOC_L_COSTOPHRENIC", x:76, y:74, layer:"Chính"},
    ]},
-  {code:"G8", color:"--g8", name:"Xương, khớp & thành ngực", px:73, py:38,
+  {code:"G8", color:"--g7", name:"Cơ hoành – dưới hoành", px:40, py:72,
    items:[
-     {n:1, vi:"Xương đòn phải", code:"CXR_PA_BONE_R_CLAVICLE", x:33, y:18},
-     {n:2, vi:"Xương đòn trái", code:"CXR_PA_BONE_L_CLAVICLE", x:68, y:18},
-     {n:3, vi:"Khớp cùng-đòn (cùng vai) phải", code:"CXR_PA_BONE_R_AC_JOINT", x:18, y:16},
-     {n:4, vi:"Khớp cùng-đòn (cùng vai) trái", code:"CXR_PA_BONE_L_AC_JOINT", x:83, y:16},
-     {n:5, vi:"Chỏm xương cánh tay phải", code:"CXR_PA_BONE_R_HUMERAL_HEAD", x:13, y:23},
-     {n:6, vi:"Chỏm xương cánh tay trái", code:"CXR_PA_BONE_L_HUMERAL_HEAD", x:88, y:23},
-     {n:7, vi:"Xương bả vai phải", code:"CXR_PA_BONE_R_SCAPULA", x:20, y:31},
-     {n:8, vi:"Xương bả vai trái", code:"CXR_PA_BONE_L_SCAPULA", x:82, y:31},
-     {n:9, vi:"Cột sống ngực", code:"CXR_PA_BONE_THORACIC_SPINE", x:50, y:48},
-     {n:10, vi:"Khớp ức-đòn phải", code:"CXR_PA_BONE_R_SC_JOINT", x:47, y:20},
-     {n:11, vi:"Khớp ức-đòn trái", code:"CXR_PA_BONE_L_SC_JOINT", x:54, y:20},
-     ...genRibs(),
+     {n:1, vi:"Vòm hoành / dưới hoành phải", code:"LOC_R_HEMIDIAPHRAGM", x:38, y:72, layer:"Chính"},
+     {n:2, vi:"Vòm hoành / dưới hoành trái", code:"LOC_L_HEMIDIAPHRAGM", x:66, y:75, layer:"Chính"},
+   ]},
+  {code:"G9", color:"--g8", name:"Xương – thành ngực – mô mềm", px:73, py:40,
+   items:[
+     {n:1, vi:"Xương – thành ngực – mô mềm", code:"LOC_CHEST_WALL_BONES", x:73, y:55, layer:"Chính"},
+     {n:2, vi:"Xương đòn phải", code:"LOC_R_CLAVICLE", x:33, y:18, layer:"Chi tiết"},
+     {n:3, vi:"Xương đòn trái", code:"LOC_L_CLAVICLE", x:68, y:18, layer:"Chi tiết"},
+     {n:4, vi:"Cột sống ngực", code:"LOC_SPINE", x:50, y:48, layer:"Chi tiết"},
    ]},
 ];
-
-// Sinh 48 vị trí xương sườn: cung trước + cung sau, mỗi bên 12 xương (sườn 1–12)
-function genRibs(){
-  const out=[];
-  const ladders=[
-    {sd:"R", lat:"phải", sub:"Cung sau",   scode:"POST", x:28, y0:20, dy:4.0},
-    {sd:"R", lat:"phải", sub:"Cung trước", scode:"ANT",  x:41, y0:31, dy:3.2},
-    {sd:"L", lat:"trái", sub:"Cung sau",   scode:"POST", x:74, y0:20, dy:4.0},
-    {sd:"L", lat:"trái", sub:"Cung trước", scode:"ANT",  x:60, y0:31, dy:3.2},
-  ];
-  ladders.forEach(s=>{
-    for(let i=1;i<=12;i++){
-      out.push({
-        n:i,
-        vi:`${s.sub} ${s.lat} – sườn ${i}`,
-        code:`CXR_PA_BONE_${s.sd}_RIB_${s.scode}_${i}`,
-        x:s.x, y:+(s.y0+(i-1)*s.dy).toFixed(1)
-      });
-    }
-  });
-  return out;
-}
 
 const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const canvas = document.getElementById('canvas');
 const groupsEl = document.getElementById('groups');
 const sb = document.getElementById('sb');
 let showLabels = true;
-const visible = {};         // groupCode -> bool (eye toggle)
-let focused = null;         // groupCode đang được chọn tiêu điểm (null = hiện tất cả cha)
-let showAllChildren = false;// chế độ xem tổng thể: hiện toàn bộ cha + con
+const visible = {};          // groupCode -> bool (eye toggle)
+const groupHasMain = {};     // groupCode -> có vùng lớp "Chính" không
+let focused = null;          // groupCode đang được chọn tiêu điểm (null = hiện tất cả cha)
+let showAllChildren = false; // chế độ xem tổng thể: hiện toàn bộ cha + con
+let onlyMain = false;        // bộ lọc: chỉ hiện các vùng lớp "Chính"
 
 // ---- build sidebar + markers ----
 GROUPS.forEach(g=>{
   visible[g.code]=true;
+  groupHasMain[g.code]=g.items.some(it=>it.layer==="Chính");
   const col = cssv(g.color);
 
   // sidebar group (collapsed by default)
@@ -290,23 +244,26 @@ GROUPS.forEach(g=>{
 
   g.items.forEach(it=>{
     it._gcolor = col; it._gcode = g.code;
+    const isMain = (it.layer==="Chính");
+    const lyrCls = isMain ? "main" : "detail";
     // sidebar row
     const row = document.createElement('div');
-    row.className='item'; row.dataset.n=it.n;
+    row.className='item'; row.dataset.n=it.n; row.dataset.layer=it.layer||"";
     row.innerHTML = `<span class="num" style="background:${col}">${it.n}</span>
-      <div class="vi">${it.vi}<div class="code">${it.code}</div></div>`;
+      <div class="vi">${it.vi}<div class="code">${it.code}</div></div>
+      <span class="lyr ${lyrCls}">${isMain?"CHÍNH":"CHI TIẾT"}</span>`;
     itemsBox.appendChild(row);
 
     // marker on canvas
     const mk = document.createElement('div');
-    mk.className='mk'; mk.dataset.n=it.n; mk.dataset.g=g.code;
+    mk.className='mk'; mk.dataset.n=it.n; mk.dataset.g=g.code; mk.dataset.layer=it.layer||"";
     mk.style.cssText=`left:${it.x}%;top:${it.y}%;background:${col}`;
     mk.textContent=it.n;
     canvas.appendChild(mk);
 
     // floating label
     const lbl = document.createElement('div');
-    lbl.className='mk-lbl'; lbl.dataset.n=it.n; lbl.dataset.g=g.code;
+    lbl.className='mk-lbl'; lbl.dataset.n=it.n; lbl.dataset.g=g.code; lbl.dataset.layer=it.layer||"";
     lbl.style.cssText=`left:${it.x}%;top:${it.y - 4}%;`;
     lbl.innerHTML=`${it.vi}<span class="c">${it.code}</span>`;
     canvas.appendChild(lbl);
@@ -358,22 +315,31 @@ GROUPS.forEach(g=>{
   groupsEl.appendChild(grp);
 });
 
-// Quy tắc hiển thị 1 marker theo trạng thái tiêu điểm
-function markerShown(g, isParent){
+// Quy tắc hiển thị 1 marker theo trạng thái tiêu điểm + bộ lọc lớp
+function markerShown(g, isParent, layer){
   if(!visible[g]) return false;
-  if(showAllChildren) return true;            // xem tổng thể: hiện hết
+  if(onlyMain){
+    // Chỉ lớp "Chính": con phải là Chính; cha chỉ hiện nếu nhóm có vùng Chính
+    if(isParent){ if(!groupHasMain[g]) return false; }
+    else { if(layer!=="Chính") return false; }
+  }
+  if(showAllChildren) return true;            // xem tổng thể: hiện hết (trong giới hạn lọc lớp)
   if(focused) return g===focused;             // đang tiêu điểm: chỉ nhóm đó (cả cha lẫn con)
   return isParent;                            // mặc định: chỉ các marker cha
 }
 
 function applyVisibility(){
   document.querySelectorAll('.mk').forEach(m=>{
-    const on = markerShown(m.dataset.g, m.classList.contains('mk-parent'));
+    const on = markerShown(m.dataset.g, m.classList.contains('mk-parent'), m.dataset.layer);
     m.style.display = on ? 'flex':'none';
   });
   document.querySelectorAll('.mk-lbl').forEach(l=>{
-    const on = markerShown(l.dataset.g, l.classList.contains('mk-lbl-parent'));
+    const on = markerShown(l.dataset.g, l.classList.contains('mk-lbl-parent'), l.dataset.layer);
     l.style.display = (on && showLabels) ? 'block':'none';
+  });
+  // ẩn dòng sidebar lớp Chi tiết khi đang lọc "chỉ vùng chính"
+  document.querySelectorAll('.item').forEach(it=>{
+    it.style.display = (onlyMain && it.dataset.layer!=="Chính") ? 'none':'flex';
   });
 }
 
@@ -404,6 +370,13 @@ document.getElementById('expandAll').onclick=()=>{
 // Mặc định: bỏ chọn tiêu điểm, chỉ hiện các marker cha
 document.getElementById('collapseAll').onclick=()=>{
   showAllChildren=false; focused=null; syncFocusUI();
+};
+// Bộ lọc lớp: chỉ hiện vùng "Chính"
+document.getElementById('onlyMainBtn').onclick=(e)=>{
+  onlyMain=!onlyMain;
+  e.target.style.background = onlyMain ? '#1f6f8b' : '';
+  e.target.style.color = onlyMain ? '#fff' : '';
+  applyVisibility();
 };
 // Bật lại hiển thị (eye) cho tất cả nhóm
 document.getElementById('showAll').onclick=()=>{
