@@ -136,12 +136,12 @@ window.ATLAS_DATA = [
      {
       "name": "Đỉnh phổi trái",
       "x": 62,
-      "y": 33.1
+      "y": 34.8
      },
      {
       "name": "Vùng dưới xương đòn trái",
       "x": 62,
-      "y": 36.5
+      "y": 38.1
      },
      {
       "name": "Vùng phổi trên trái",
@@ -149,14 +149,9 @@ window.ATLAS_DATA = [
       "y": 39
      },
      {
-      "name": "Vùng phổi giữa trái",
-      "x": 68,
-      "y": 50
-     },
-     {
       "name": "Vùng phổi dưới trái",
       "x": 62,
-      "y": 46.4
+      "y": 44.7
      },
      {
       "name": "Vùng quanh rốn phổi trái",
@@ -181,7 +176,7 @@ window.ATLAS_DATA = [
      {
       "name": "Đáy phổi trái",
       "x": 62,
-      "y": 62.9
+      "y": 61.2
      }
     ]
    }
