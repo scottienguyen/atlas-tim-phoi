@@ -301,102 +301,49 @@ window.ATLAS_DATA = [
     "name": "Vòm hoành phải",
     "x": 38,
     "y": 72,
-    "details": [
-     {
-      "name": "Vòm hoành phải",
-      "x": 38,
-      "y": 72
-     }
-    ]
+    "details": []
    },
    {
     "name": "Vòm hoành trái",
     "x": 66,
     "y": 75,
-    "details": [
-     {
-      "name": "Vòm hoành trái",
-      "x": 66,
-      "y": 75
-     }
-    ]
+    "details": []
    },
    {
     "name": "Góc sườn hoành phải",
     "x": 27,
     "y": 75,
-    "details": [
-     {
-      "name": "Góc sườn hoành phải",
-      "x": 27,
-      "y": 75
-     }
-    ]
+    "details": []
    },
    {
     "name": "Góc sườn hoành trái",
     "x": 76,
     "y": 75,
-    "details": [
-     {
-      "name": "Góc sườn hoành trái",
-      "x": 76,
-      "y": 75
-     }
-    ]
+    "details": []
    },
    {
     "name": "Góc tâm hoành phải",
     "x": 43,
     "y": 77,
-    "details": [
-     {
-      "name": "Góc tâm hoành phải",
-      "x": 43,
-      "y": 77
-     }
-    ]
+    "details": []
    },
    {
     "name": "Góc tâm hoành trái",
     "x": 64,
     "y": 78,
-    "details": [
-     {
-      "name": "Góc tâm hoành trái",
-      "x": 64,
-      "y": 78
-     }
-    ]
+    "details": []
    },
    {
     "name": "Dưới hoành phải",
     "x": 40,
     "y": 84,
-    "details": [
-     {
-      "name": "Vùng dưới hoành phải",
-      "x": 46,
-      "y": 84.0
-     }
-    ]
+    "details": []
    },
    {
     "name": "Dưới hoành trái",
     "x": 66,
     "y": 84,
-    "details": [
-     {
-      "name": "Vùng dưới hoành trái",
-      "x": 60,
-      "y": 82.3
-     },
-     {
-      "name": "Bóng hơi dạ dày",
-      "x": 60,
-      "y": 85.7
-     }
-    ]
+    "details": []
    }
   ]
  },
