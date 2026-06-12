@@ -7,63 +7,58 @@ window.ATLAS_DATA = [
   "y": 30,
   "positions": [
    {
-    "name": "Khí quản",
+    "name": "Khí quản chính",
     "x": 50,
     "y": 22,
-    "details": [
-     {
-      "name": "Khí quản đoạn cổ thấp",
-      "x": 50,
-      "y": 13
-     },
-     {
-      "name": "Khí quản đoạn trong lồng ngực",
-      "x": 50,
-      "y": 26
-     },
-     {
-      "name": "Khí quản lệch phải",
-      "x": 46,
-      "y": 20
-     },
-     {
-      "name": "Khí quản lệch trái",
-      "x": 54,
-      "y": 20
-     }
-    ]
+    "details": []
    },
    {
-    "name": "Chạc ba khí quản",
+    "name": "Ngã ba khí quản (Carina)",
     "x": 49,
     "y": 39,
+    "details": []
+   },
+   {
+    "name": "Phế quản gốc bên phải",
+    "x": 44,
+    "y": 43,
     "details": [
      {
-      "name": "Chạc ba khí quản",
-      "x": 49,
+      "name": "Phế quản thùy trên",
+      "x": 43,
       "y": 39
      },
      {
-      "name": "Góc carina",
-      "x": 55,
-      "y": 40.6
+      "name": "Phế quản thùy giữa",
+      "x": 42,
+      "y": 44
+     },
+     {
+      "name": "Phế quản thùy dưới",
+      "x": 41,
+      "y": 49
      }
     ]
    },
    {
-    "name": "Phế quản gốc",
-    "x": 47,
-    "y": 42,
+    "name": "Phế quản gốc bên trái",
+    "x": 56,
+    "y": 43,
     "details": [
      {
-      "name": "Phế quản gốc phải",
-      "x": 53,
-      "y": 40.4
+      "name": "Phế quản thùy trên",
+      "x": 57,
+      "y": 39
      },
      {
-      "name": "Phế quản gốc trái",
-      "x": 53,
-      "y": 43.6
+      "name": "Phế quản thùy lưỡi",
+      "x": 58,
+      "y": 44
+     },
+     {
+      "name": "Phế quản thùy dưới",
+      "x": 59,
+      "y": 49
      }
     ]
    }
@@ -229,14 +224,19 @@ window.ATLAS_DATA = [
     "y": 50,
     "details": [
      {
-      "name": "Mạch máu phổi trung tâm bên phải",
-      "x": 50,
-      "y": 48.4
+      "name": "1/3 ngoài",
+      "x": 27,
+      "y": 50
      },
      {
-      "name": "Mạch máu phổi ngoại vi bên phải",
-      "x": 50,
-      "y": 51.6
+      "name": "1/3 giữa",
+      "x": 37,
+      "y": 49
+     },
+     {
+      "name": "1/3 trong",
+      "x": 45,
+      "y": 48
      }
     ]
    },
@@ -246,36 +246,19 @@ window.ATLAS_DATA = [
     "y": 47,
     "details": [
      {
-      "name": "Mạch máu phổi trung tâm bên trái",
-      "x": 55,
-      "y": 45.4
+      "name": "1/3 ngoài",
+      "x": 76,
+      "y": 48
      },
      {
-      "name": "Mạch máu phổi ngoại vi bên trái",
-      "x": 55,
-      "y": 48.6
-     }
-    ]
-   },
-   {
-    "name": "Mạch máu phổi hai bên",
-    "x": 50,
-    "y": 50,
-    "details": [
-     {
-      "name": "Tăng đậm mạch máu phổi hai bên",
-      "x": 44,
-      "y": 46.7
+      "name": "1/3 giữa",
+      "x": 66,
+      "y": 47
      },
      {
-      "name": "Giảm tưới máu phổi hai bên",
-      "x": 44,
-      "y": 50.0
-     },
-     {
-      "name": "Sung huyết mạch máu phổi hai bên",
-      "x": 44,
-      "y": 53.3
+      "name": "1/3 trong",
+      "x": 57,
+      "y": 46
      }
     ]
    }
@@ -294,19 +277,19 @@ window.ATLAS_DATA = [
     "y": 50,
     "details": [
      {
-      "name": "Đỉnh màng phổi phải",
-      "x": 30,
-      "y": 46.7
+      "name": "Trên",
+      "x": 24,
+      "y": 38
      },
      {
-      "name": "Thành bên màng phổi phải",
-      "x": 17,
-      "y": 50
+      "name": "Giữa",
+      "x": 22,
+      "y": 52
      },
      {
-      "name": "Đáy màng phổi phải",
-      "x": 30,
-      "y": 53.3
+      "name": "Dưới",
+      "x": 26,
+      "y": 66
      }
     ]
    },
@@ -316,95 +299,14 @@ window.ATLAS_DATA = [
     "y": 50,
     "details": [
      {
-      "name": "Đỉnh màng phổi trái",
-      "x": 74,
-      "y": 46.7
+      "name": "Trên",
+      "x": 80,
+      "y": 40
      },
      {
-      "name": "Thành bên màng phổi trái",
-      "x": 87,
-      "y": 50
-     },
-     {
-      "name": "Đáy màng phổi trái",
-      "x": 74,
-      "y": 53.3
-     }
-    ]
-   },
-   {
-    "name": "Khoang màng phổi phải",
-    "x": 28,
-    "y": 62,
-    "details": [
-     {
-      "name": "Khoang màng phổi phải",
-      "x": 28,
-      "y": 62
-     },
-     {
-      "name": "Khoang màng phổi phải vùng đỉnh",
-      "x": 34,
-      "y": 60.4
-     },
-     {
-      "name": "Khoang màng phổi phải vùng đáy",
-      "x": 34,
-      "y": 63.6
-     },
-     {
-      "name": "Khoang màng phổi phải thành bên",
-      "x": 21,
-      "y": 62
-     }
-    ]
-   },
-   {
-    "name": "Khoang màng phổi trái",
-    "x": 76,
-    "y": 62,
-    "details": [
-     {
-      "name": "Khoang màng phổi trái",
-      "x": 76,
-      "y": 62
-     },
-     {
-      "name": "Khoang màng phổi trái vùng đỉnh",
-      "x": 70,
-      "y": 60.4
-     },
-     {
-      "name": "Khoang màng phổi trái vùng đáy",
-      "x": 70,
-      "y": 63.6
-     },
-     {
-      "name": "Khoang màng phổi trái thành bên",
-      "x": 83,
-      "y": 62
-     }
-    ]
-   },
-   {
-    "name": "Rãnh liên thùy",
-    "x": 38,
-    "y": 52,
-    "details": [
-     {
-      "name": "Rãnh ngang phổi phải",
-      "x": 44,
-      "y": 48.7
-     },
-     {
-      "name": "Rãnh chéo phổi phải",
-      "x": 44,
-      "y": 52.0
-     },
-     {
-      "name": "Rãnh chéo phổi trái",
-      "x": 44,
-      "y": 55.3
+      "name": "Dưới",
+      "x": 78,
+      "y": 64
      }
     ]
    }
@@ -528,9 +430,31 @@ window.ATLAS_DATA = [
   "y": 60,
   "positions": [
    {
-    "name": "Bóng tim",
+    "name": "Trung thất (phim nghiêng)",
+    "x": 50,
+    "y": 47,
+    "details": [
+     {
+      "name": "Trước",
+      "x": 53,
+      "y": 50
+     },
+     {
+      "name": "Giữa",
+      "x": 50,
+      "y": 46
+     },
+     {
+      "name": "Sau",
+      "x": 50,
+      "y": 58
+     }
+    ]
+   },
+   {
+    "name": "Tim",
     "x": 53,
-    "y": 64,
+    "y": 62,
     "details": [
      {
       "name": "Bóng tim",
@@ -538,150 +462,24 @@ window.ATLAS_DATA = [
       "y": 64
      },
      {
-      "name": "Bờ tim phải",
-      "x": 46,
-      "y": 64
-     },
-     {
-      "name": "Bờ tim trái",
-      "x": 60,
-      "y": 64
-     },
-     {
-      "name": "Đáy tim",
-      "x": 47,
-      "y": 67.3
-     },
-     {
-      "name": "Mỏm tim",
-      "x": 60,
-      "y": 73
-     }
-    ]
-   },
-   {
-    "name": "Trung thất",
-    "x": 50,
-    "y": 46,
-    "details": [
-     {
-      "name": "Trung thất trên",
-      "x": 44,
-      "y": 39.4
-     },
-     {
-      "name": "Trung thất giữa",
-      "x": 44,
-      "y": 42.7
-     },
-     {
-      "name": "Trung thất dưới",
-      "x": 44,
-      "y": 46.0
-     },
-     {
-      "name": "Bờ trung thất phải",
-      "x": 44,
-      "y": 49.3
-     },
-     {
-      "name": "Bờ trung thất trái",
-      "x": 44,
-      "y": 52.6
-     }
-    ]
-   },
-   {
-    "name": "Cạnh khí quản",
-    "x": 46,
-    "y": 30,
-    "details": [
-     {
-      "name": "Vùng cạnh khí quản phải",
-      "x": 52,
-      "y": 28.4
-     },
-     {
-      "name": "Vùng cạnh khí quản trái",
-      "x": 52,
-      "y": 31.6
-     }
-    ]
-   },
-   {
-    "name": "Quai động mạch chủ",
-    "x": 58,
-    "y": 36,
-    "details": [
-     {
       "name": "Quai động mạch chủ",
       "x": 58,
       "y": 36
      },
      {
-      "name": "Nút động mạch chủ",
-      "x": 52,
-      "y": 37.6
-     }
-    ]
-   },
-   {
-    "name": "Động mạch chủ xuống",
-    "x": 54,
-    "y": 50,
-    "details": [
+      "name": "Động mạch chủ lên",
+      "x": 46,
+      "y": 44
+     },
      {
       "name": "Động mạch chủ xuống",
       "x": 54,
-      "y": 50
-     }
-    ]
-   },
-   {
-    "name": "Cửa sổ chủ - phổi",
-    "x": 57,
-    "y": 41,
-    "details": [
-     {
-      "name": "Cửa sổ chủ - phổi",
-      "x": 57,
-      "y": 41
-     }
-    ]
-   },
-   {
-    "name": "Tĩnh mạch chủ trên",
-    "x": 46,
-    "y": 33,
-    "details": [
+      "y": 52
+     },
      {
       "name": "Tĩnh mạch chủ trên",
       "x": 46,
       "y": 33
-     }
-    ]
-   },
-   {
-    "name": "Chỗ nối TMCT - nhĩ phải",
-    "x": 47,
-    "y": 55,
-    "details": [
-     {
-      "name": "Chỗ nối tĩnh mạch chủ trên - nhĩ phải",
-      "x": 53,
-      "y": 55.0
-     }
-    ]
-   },
-   {
-    "name": "Nhĩ phải",
-    "x": 45,
-    "y": 60,
-    "details": [
-     {
-      "name": "Vùng nhĩ phải",
-      "x": 51,
-      "y": 60.0
      }
     ]
    }
