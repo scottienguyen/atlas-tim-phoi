@@ -578,61 +578,6 @@ window.ATLAS_DATA = [
   "x": 50,
   "y": 46,
   "checklist": true,
-  "positions": [
-   {
-    "name": "Ống nội khí quản",
-    "x": 50,
-    "y": 22,
-    "details": []
-   },
-   {
-    "name": "Ống mở khí quản",
-    "x": 50,
-    "y": 15,
-    "details": []
-   },
-   {
-    "name": "Sonde dạ dày / ống nuôi ăn",
-    "x": 54,
-    "y": 50,
-    "details": []
-   },
-   {
-    "name": "Catheter tĩnh mạch trung tâm",
-    "x": 46,
-    "y": 32,
-    "details": []
-   },
-   {
-    "name": "PICC",
-    "x": 40,
-    "y": 30,
-    "details": []
-   },
-   {
-    "name": "Máy tạo nhịp / dây điện cực",
-    "x": 68,
-    "y": 32,
-    "details": []
-   },
-   {
-    "name": "Ống dẫn lưu màng phổi",
-    "x": 24,
-    "y": 52,
-    "details": []
-   },
-   {
-    "name": "Dây thép xương ức / vật liệu sau PT",
-    "x": 50,
-    "y": 46,
-    "details": []
-   },
-   {
-    "name": "Dị vật / vật cản ngoài cơ thể",
-    "x": 45,
-    "y": 45,
-    "details": []
-   }
-  ]
+  "positions": []
  }
 ];

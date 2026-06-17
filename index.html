@@ -73,6 +73,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .chk-btns button:hover{color:var(--txt);}
 .chk.on-y .chk-y{background:#1f8b5f;color:#fff;border-color:#1f8b5f;}
 .chk.on-n .chk-n{background:#8b3a3a;color:#fff;border-color:#8b3a3a;}
+.grp.checklist .grp-hd{cursor:default;}
+.grp.checklist .chk-btns{margin-left:auto;}
+.grp.checklist.on-y .chk-y{background:#1f8b5f;color:#fff;border-color:#1f8b5f;}
+.grp.checklist.on-n .chk-n{background:#8b3a3a;color:#fff;border-color:#8b3a3a;}
 
 /* stage */
 .stage{position:relative;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;}
@@ -738,62 +742,7 @@ window.ATLAS_DATA = [
   "x": 50,
   "y": 46,
   "checklist": true,
-  "positions": [
-   {
-    "name": "Ống nội khí quản",
-    "x": 50,
-    "y": 22,
-    "details": []
-   },
-   {
-    "name": "Ống mở khí quản",
-    "x": 50,
-    "y": 15,
-    "details": []
-   },
-   {
-    "name": "Sonde dạ dày / ống nuôi ăn",
-    "x": 54,
-    "y": 50,
-    "details": []
-   },
-   {
-    "name": "Catheter tĩnh mạch trung tâm",
-    "x": 46,
-    "y": 32,
-    "details": []
-   },
-   {
-    "name": "PICC",
-    "x": 40,
-    "y": 30,
-    "details": []
-   },
-   {
-    "name": "Máy tạo nhịp / dây điện cực",
-    "x": 68,
-    "y": 32,
-    "details": []
-   },
-   {
-    "name": "Ống dẫn lưu màng phổi",
-    "x": 24,
-    "y": 52,
-    "details": []
-   },
-   {
-    "name": "Dây thép xương ức / vật liệu sau PT",
-    "x": 50,
-    "y": 46,
-    "details": []
-   },
-   {
-    "name": "Dị vật / vật cản ngoài cơ thể",
-    "x": 45,
-    "y": 45,
-    "details": []
-   }
-  ]
+  "positions": []
  }
 ];
 </script>
@@ -869,22 +818,14 @@ DATA.forEach((g,gi)=>{
   treeEl.appendChild(grp);
 });
 
-// nhóm dạng checklist (Có/Không) — chỉ ở sidebar, không có marker trên ảnh
+// nhóm dạng checklist — chỉ MỘT lựa chọn Có/Không cho cả nhóm, không có marker trên ảnh
 function buildChecklist(g,gi,col){
   const grp=document.createElement('div'); grp.className='grp checklist'; grp.dataset.g=gi;
   grp.innerHTML=`<div class="grp-hd"><span class="dot" style="background:${col}"></span>
-     <span class="grp-name">${g.name}</span><span class="grp-cnt">Có / Không</span></div>
-     <div class="grp-pos"></div>`;
-  grp.querySelector('.grp-hd').onclick=()=>grp.classList.toggle('open');
-  const box=grp.querySelector('.grp-pos');
-  g.positions.forEach(p=>{
-    const it=document.createElement('div'); it.className='chk';
-    it.innerHTML=`<span class="chk-name">${p.name}</span>
-      <span class="chk-btns"><button class="chk-y">Có</button><button class="chk-n">Không</button></span>`;
-    it.querySelector('.chk-y').onclick=()=>{ it.classList.add('on-y'); it.classList.remove('on-n'); };
-    it.querySelector('.chk-n').onclick=()=>{ it.classList.add('on-n'); it.classList.remove('on-y'); };
-    box.appendChild(it);
-  });
+     <span class="grp-name">${g.name}</span>
+     <span class="chk-btns"><button class="chk-y">Có</button><button class="chk-n">Không</button></span></div>`;
+  grp.querySelector('.chk-y').onclick=(e)=>{ e.stopPropagation(); grp.classList.add('on-y'); grp.classList.remove('on-n'); };
+  grp.querySelector('.chk-n').onclick=(e)=>{ e.stopPropagation(); grp.classList.add('on-n'); grp.classList.remove('on-y'); };
   treeEl.appendChild(grp);
 }
 
