@@ -38,6 +38,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .sb-tools button{flex:1;background:#222b35;border:1px solid var(--line);color:var(--mut);
   padding:6px;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600;}
 .sb-tools button:hover{color:var(--txt);}
+.sb-tools button.on{background:#1f6f8b;color:#fff;border-color:#1f6f8b;}
 .tree{padding:4px 8px 16px;}
 
 .grp{margin-bottom:5px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--panel2);}
@@ -143,6 +144,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="sb">
     <div class="crumb" id="crumb"></div>
     <div class="sb-tools">
+      <button id="expandTreeBtn">⊞ Mở bung danh mục</button>
       <button id="resetBtn">Về tất cả nhóm</button>
       <button id="overviewBtn">Xem toàn bộ</button>
     </div>
@@ -753,7 +755,7 @@ const canvas = document.getElementById('canvas');
 const treeEl = document.getElementById('tree');
 const crumbEl = document.getElementById('crumb');
 let showLabels=false, focusG=null, focusP=null;  // focusP = chỉ số vị trí trong nhóm focusG
-let editMode=false, drag=null;
+let editMode=false, drag=null, treeExpanded=false;
 
 // id ổn định cho từng nút — THEO TÊN (không theo chỉ số) để đổi cấu trúc không làm lệch vị trí đã lưu
 const ORIG={};
@@ -899,10 +901,10 @@ function applyMarkers(){
 
 // đồng bộ sidebar + breadcrumb
 function sync(){
-  document.querySelectorAll('.grp').forEach(el=>{ if(el.classList.contains('checklist')) return; el.classList.toggle('open',+el.dataset.g===focusG); });
+  document.querySelectorAll('.grp').forEach(el=>{ if(el.classList.contains('checklist')) return; el.classList.toggle('open', treeExpanded || +el.dataset.g===focusG); });
   document.querySelectorAll('.pos').forEach(el=>{
     const sel = (+el.dataset.g===focusG && +el.dataset.p===focusP && focusP!==null);
-    el.classList.toggle('open',sel); el.classList.toggle('sel',sel);
+    el.classList.toggle('open', treeExpanded || sel); el.classList.toggle('sel',sel);
   });
   // breadcrumb
   let html=`<a id="cAll">Tất cả nhóm</a>`;
@@ -919,6 +921,13 @@ function sync(){
 }
 
 // ----- tools -----
+const expandTreeBtn=document.getElementById('expandTreeBtn');
+expandTreeBtn.onclick=()=>{
+  treeExpanded=!treeExpanded;
+  expandTreeBtn.textContent = treeExpanded ? '⊟ Thu gọn danh mục' : '⊞ Mở bung danh mục';
+  expandTreeBtn.classList.toggle('on', treeExpanded);
+  sync();
+};
 document.getElementById('resetBtn').onclick=()=>{focusG=null;focusP=null;sync();};
 document.getElementById('overviewBtn').onclick=()=>{
   // hiện toàn bộ marker mọi cấp
