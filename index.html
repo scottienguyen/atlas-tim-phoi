@@ -806,15 +806,23 @@ const crumbEl = document.getElementById('crumb');
 let showLabels=false, focusG=null, focusP=null;  // focusP = chỉ số vị trí trong nhóm focusG
 let editMode=false, drag=null;
 
-// id ổn định cho từng nút + lưu toạ độ gốc (để khôi phục mặc định)
+// id ổn định cho từng nút — THEO TÊN (không theo chỉ số) để đổi cấu trúc không làm lệch vị trí đã lưu
 const ORIG={};
-const gid=gi=>'g'+gi, pid=(gi,pi)=>`g${gi}p${pi}`, did=(gi,pi,di)=>`g${gi}p${pi}d${di}`;
+const gid=gi=>'G:'+DATA[gi].name;
+const pid=(gi,pi)=>'P:'+DATA[gi].name+'>'+DATA[gi].positions[pi].name;
+const did=(gi,pi,di)=>'D:'+DATA[gi].name+'>'+DATA[gi].positions[pi].name+'>'+DATA[gi].positions[pi].details[di].name;
 DATA.forEach((g,gi)=>{ ORIG[gid(gi)]=[g.x,g.y];
   g.positions.forEach((p,pi)=>{ ORIG[pid(gi,pi)]=[p.x,p.y];
     p.details.forEach((d,di)=>{ ORIG[did(gi,pi,di)]=[d.x,d.y]; }); }); });
 
-// áp vị trí người dùng đã lưu (localStorage) — trước khi dựng marker
-const OV=(()=>{ try{return JSON.parse(localStorage.getItem('atlas_overrides')||'{}');}catch(e){return {};} })();
+// áp vị trí người dùng đã lưu (localStorage) — trước khi dựng marker.
+// Tự DỌN dữ liệu lưu định dạng cũ (theo chỉ số) để tránh lệch sau khi đổi cấu trúc cây.
+const OV=(()=>{ try{
+    const o=JSON.parse(localStorage.getItem('atlas_overrides')||'{}');
+    const ok=Object.keys(o).some(k=>k[0]==='G'&&k[1]===':'||k[0]==='P'&&k[1]===':'||k[0]==='D'&&k[1]===':');
+    if(Object.keys(o).length && !ok){ localStorage.removeItem('atlas_overrides'); return {}; }
+    return o;
+  }catch(e){ return {}; } })();
 DATA.forEach((g,gi)=>{ if(OV[gid(gi)]) [g.x,g.y]=OV[gid(gi)];
   g.positions.forEach((p,pi)=>{ if(OV[pid(gi,pi)]) [p.x,p.y]=OV[pid(gi,pi)];
     p.details.forEach((d,di)=>{ if(OV[did(gi,pi,di)]) [d.x,d.y]=OV[did(gi,pi,di)]; }); }); });
