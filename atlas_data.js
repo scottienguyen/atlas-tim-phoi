@@ -426,70 +426,70 @@ window.ATLAS_DATA = [
   "positions": [
    {
     "name": "Xương đòn phải",
-    "x": 33,
+    "x": 32,
     "y": 15,
     "details": [
      {
       "name": "1/3 trong",
-      "x": 42,
+      "x": 43,
       "y": 17
      },
      {
       "name": "1/3 giữa",
-      "x": 31,
+      "x": 32,
       "y": 15
      },
      {
       "name": "1/3 ngoài",
-      "x": 22,
-      "y": 13
+      "x": 21,
+      "y": 12
      }
     ]
    },
    {
     "name": "Xương đòn trái",
-    "x": 67,
+    "x": 68,
     "y": 15,
     "details": [
      {
       "name": "1/3 trong",
-      "x": 58,
+      "x": 57,
       "y": 17
      },
      {
       "name": "1/3 giữa",
-      "x": 69,
+      "x": 68,
       "y": 15
      },
      {
       "name": "1/3 ngoài",
-      "x": 78,
-      "y": 13
+      "x": 79,
+      "y": 12
      }
     ]
    },
    {
     "name": "Khớp cùng đòn trái",
-    "x": 82,
-    "y": 13,
+    "x": 83,
+    "y": 11,
     "details": []
    },
    {
     "name": "Khớp cùng đòn phải",
-    "x": 18,
-    "y": 13,
+    "x": 17,
+    "y": 11,
     "details": []
    },
    {
     "name": "Xương vai phải",
-    "x": 18,
-    "y": 27,
+    "x": 15,
+    "y": 28,
     "details": []
    },
    {
     "name": "Xương vai trái",
-    "x": 82,
-    "y": 27,
+    "x": 85,
+    "y": 28,
     "details": []
    },
    {
@@ -499,73 +499,73 @@ window.ATLAS_DATA = [
     "details": [
      {
       "name": "Cung bên phải",
-      "x": 47,
-      "y": 42
+      "x": 48,
+      "y": 41
      },
      {
       "name": "Cung bên trái",
       "x": 52,
-      "y": 42
+      "y": 41
      },
      {
       "name": "Mỏm gai",
       "x": 50,
-      "y": 47
+      "y": 44
      },
      {
       "name": "Thân sống",
       "x": 50,
-      "y": 37
+      "y": 38
      }
     ]
    },
    {
     "name": "Mô mềm",
-    "x": 86,
-    "y": 48,
+    "x": 89,
+    "y": 49,
     "details": []
    },
    {
     "name": "Xương sườn phải",
-    "x": 23,
-    "y": 42,
+    "x": 21,
+    "y": 43,
     "details": [
      {
       "name": "Cung trước",
-      "x": 36,
-      "y": 53
+      "x": 37,
+      "y": 52
      },
      {
       "name": "Cung bên",
-      "x": 20,
-      "y": 45
+      "x": 18,
+      "y": 44
      },
      {
       "name": "Cung sau",
       "x": 45,
-      "y": 40
+      "y": 38
      }
     ]
    },
    {
     "name": "Xương sườn trái",
-    "x": 77,
-    "y": 42,
+    "x": 79,
+    "y": 43,
     "details": [
      {
       "name": "Cung trước",
-      "x": 64,
-      "y": 53
+      "x": 63,
+      "y": 52
      },
      {
       "name": "Cung bên",
-      "x": 80,
-      "y": 45
+      "x": 82,
+      "y": 44
      },
      {
       "name": "Cung sau",
       "x": 55,
-      "y": 40
+      "y": 38
      }
     ]
    }
